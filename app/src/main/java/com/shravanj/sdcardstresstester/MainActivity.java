@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity
 
     private TextView totalSD;
     private long sdCardSpace;
+    private long time;
     
 
     @Override
