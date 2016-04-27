@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.3.0_2871661a35996c37040982b80b1444253400f482.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.3.0_be21d724f75c85ff533e7a9d6339429bbd847716.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\AppData\Local\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\support-annotations-23.3.0_712e324f90368eba09199ccab246d1395ef9417f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.3.0_4ffe49f7cd9de0d005664cb297a6c768f2ace753.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b41819a5960287052923c09e8a5222ac7c521564">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\instant-run_da6cba82c992e2eba462e50ae869259c664892ba.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\internal_impl-23.3.0_6b4969b75fc3c85c81ebc25884d2dd29c40f326f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.3.0_7d1f38af652b8389ead6a98a0aa8baff9af2e7e9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="97deecd1fe9975e2ae3930f9874df40d90d7caad">
+        <dex dex="C:\Users\Shravan\Desktop\SDCardStressTester\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_5dfd8c5315c560544f4ec34694fea7de4cc5820e.jar" />
+    </item>
+
+</items>
