@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         sdCardSpace = getTotalSDCardSize();
         if(checkForSD())
         {
-           totalSD.setText(Long.toString(sdCardSpace));
+           totalSD.setText(Long.toString(sdCardSpace) + " MB free");
         }
 
     }
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity
     {
         File f = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(f.getPath());
-        long size = stat.getBlockSizeLong();
-        long count = stat.getBlockCountLong();
+        long size = stat.getBlockSize();
+        long count = stat.getBlockCount();
 
         return (size * count) / (long) (Math.pow(1024, 2));
 
