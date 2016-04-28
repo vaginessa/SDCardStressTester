@@ -20,11 +20,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Test"
+        android:text="Run Stress Test"
         android:id="@+id/startTest"
-        android:layout_above="@+id/cancelTest"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp" />
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,9 +49,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SD Space:"
-        android:id="@+id/totalSD"
-        android:layout_marginTop="45dp"
+        android:id="@+id/sdStatus"
+        android:text="Status"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help/Info"
+        android:id="@+id/infoButton"
         android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timer"
+        android:layout_below="@+id/infoButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
