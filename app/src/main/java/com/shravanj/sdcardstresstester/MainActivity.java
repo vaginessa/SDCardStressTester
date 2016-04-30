@@ -12,8 +12,6 @@ import java.io.*;
 import java.util.*;
 
 
-
-
 public class MainActivity extends AppCompatActivity
 {
 
@@ -24,7 +22,6 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar spinner;
     private Chronometer timer;
     private boolean testInitiated;
-    private final int NUM_FILES_TO_GENERATE = 1000;
     private int fileNumber;
 
 
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         spinner.setVisibility(View.GONE);
         if(checkForSD())
         {
-            final long sdAvailableSpace = getTotalSDCardSize();
+            final long sdAvailableSpace = getAvailableSDSpace();
            sdStatus.setText("SD Card Detected. Press run test to start.");
             startTest.setOnClickListener(new View.OnClickListener()
             {
@@ -54,7 +51,6 @@ public class MainActivity extends AppCompatActivity
                     stopTestHandler();
                     spinner.setVisibility(View.VISIBLE);
                     timer.start();
-
                 }
             });
         }
@@ -62,9 +58,6 @@ public class MainActivity extends AppCompatActivity
         {
             sdStatus.setText("No SD Card found");
         }
-
-
-
     }
 
     public void displayHelpMessage()
@@ -137,13 +130,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public long getTotalSDCardSize()
+    public long getAvailableSDSpace()
     {
         StatFs sdstat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-        long availableSpace = (long) sdstat.getAvailableBlocks() * (long) sdstat.getBlockCount() / (long) Math.pow(1024, 2);
+        long availableSpace = (long) sdstat.getBlockSize() * (long) sdstat.getAvailableBlocks() / (long) Math.pow(1024, 2);
         return availableSpace;
     }
-
-
+    
+    public long calculateNumFiles()
+    {
+       long spaceToUse = (long) (getAvailableSDSpace() * .10);
+        return spaceToUse;
+    }
 
 }
