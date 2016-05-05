@@ -1,6 +1,7 @@
 package com.shravanj.sdcardstresstester;
 
 import android.app.AlertDialog;
+import android.os.Process;
 import android.support.v4.content.pm.ActivityInfoCompat;
 import android.support.v7.app.*;
 import android.os.*;
@@ -10,6 +11,8 @@ import android.widget.*;
 import android.content.*;
 import java.io.*;
 import java.util.*;
+
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -22,7 +25,9 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar spinner;
     private Chronometer timer;
     private boolean testInitiated;
-    private int fileNumber;
+    long sdAvailableSpace = getAvailableSDSpace();
+    long fileNumber = calculateNumFiles();
+    private boolean done = false;
 
 
     @Override
@@ -37,20 +42,35 @@ public class MainActivity extends AppCompatActivity
         sdStatus = (TextView)findViewById(R.id.sdStatus);
         spinner = (ProgressBar)findViewById(R.id.progressBar);
         displayHelpMessage();
+        stopTestHandler();
         spinner.setVisibility(View.GONE);
         if(checkForSD())
         {
-            final long sdAvailableSpace = getAvailableSDSpace();
            sdStatus.setText("SD Card Detected. Press run test to start.");
             startTest.setOnClickListener(new View.OnClickListener()
             {
-                public void onClick(View v)
-                {
-                    sdStatus.setText("Test started. SD avail: " + sdAvailableSpace);
+                public void onClick(View v) {
+
+                    sdStatus.setText("Test started");
                     testInitiated = true;
-                    stopTestHandler();
                     spinner.setVisibility(View.VISIBLE);
                     timer.start();
+                    boolean b = true;
+                    while(b)
+                    {
+                        stopTestHandler();
+                        boolean run = createFiles();
+                        System.out.println("Files created");
+                        if(run)
+                        {
+                            b = false;
+                        }
+                    }
+                    if(done)
+                    {
+                        timer.stop();
+                        sdStatus.setText("Writing files complete.");
+                    }
                 }
             });
         }
@@ -94,6 +114,8 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View view) {
                     spinner.setVisibility(View.GONE);
                     resetTimer();
+                    done = true;
+                    deleteFiles();
                     sdStatus.setText("Test canceled");
                 }
             });
@@ -108,14 +130,49 @@ public class MainActivity extends AppCompatActivity
         stopped = 0;
     }
 
-    public void createFiles()
+    public boolean createFiles()
     {
-
+        try
+        {
+            String str = "";
+            File testDir = new File("/sdcard/stresstest");
+            testDir.mkdirs();
+            for(long x = 1; x <= fileNumber; x++)
+            {
+                str = "TestFile_" + (long) (x) + ".dat";
+                File test = new File(testDir, str);
+                //h.postDelayed(r, 3000);
+                RandomAccessFile testFile = new RandomAccessFile(test, "rw");
+                testFile.setLength(1024 * 1024);
+                System.out.println(str);
+                testFile.close();
+                //h.postDelayed(r, 3000);
+                if(x == fileNumber)
+                {
+                    done = true;
+                }
+            }
+        }
+        catch(IOException io)
+        {
+            //errorMessage();
+            System.out.println(io);
+        }
+        return done;
     }
+
 
     public void deleteFiles()
     {
-
+        File dir = new File("sdcard/stresstest/");
+        if (dir.isDirectory())
+        {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++)
+            {
+                new File(dir, children[i]).delete();
+            }
+        }
     }
 
     public boolean checkForSD()
@@ -139,8 +196,71 @@ public class MainActivity extends AppCompatActivity
     
     public long calculateNumFiles()
     {
-       long spaceToUse = (long) (getAvailableSDSpace() * .10);
+       long spaceToUse = (long) (getAvailableSDSpace() * .010);
         return spaceToUse;
     }
+
+    public void errorMessage()
+    {
+        AlertDialog help = new AlertDialog.Builder(MainActivity.this).create();
+        help.setTitle("Error");
+        help.setMessage("An error occurred while generating the files");
+        help.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        help.show();
+    }
+
+    /*Runnable r = new Runnable()
+    {
+        @Override
+        public void run() {
+            createFiles();
+        }
+    };
+
+    Handler h = new Handler();*/
+
+    /*static class FileCreationThread implements Runnable
+    {
+        boolean tmp = createFiles();
+        @Override
+        public void run()
+        {
+            android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+        }
+    }*/
+
+    /*class FileGeneration extends AsyncTask<Boolean, Void, Boolean>
+    {
+        @Override
+        protected Boolean doInBackground(Boolean... b)
+        {
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute()
+        {
+
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+
+        }
+
+        @Override
+        protected void onProgressUpdate()
+        {
+
+        }
+
+    }*/
 
 }
