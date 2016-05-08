@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
     
     public long calculateNumFiles()
     {
-       long spaceToUse = (long) (getAvailableSDSpace() * .010);
+       long spaceToUse = (long) (getAvailableSDSpace() * .10);
         return spaceToUse;
     }
 
