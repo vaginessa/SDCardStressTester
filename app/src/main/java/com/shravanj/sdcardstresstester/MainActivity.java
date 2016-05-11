@@ -55,22 +55,25 @@ public class MainActivity extends AppCompatActivity
                     testInitiated = true;
                     spinner.setVisibility(View.VISIBLE);
                     timer.start();
-                    boolean b = true;
-                    while(b)
-                    {
-                        stopTestHandler();
-                        boolean run = createFiles();
-                        System.out.println("Files created");
-                        if(run)
-                        {
-                            b = false;
-                        }
-                    }
-                    if(done)
-                    {
-                        timer.stop();
-                        sdStatus.setText("Writing files complete.");
-                    }
+                    Intent fileIntent = new Intent(Intent.ACTION_VIEW);
+//                    boolean b = true;
+//                    while(b)
+//                    {
+//                        stopTestHandler();
+//                        boolean run = createFiles();
+//
+//                        System.out.println("Files created");
+//                        if(run)
+//                        {
+//                            b = false;
+//                        }
+//                    }
+//                    if(done)
+//                    {
+//                        timer.stop();
+//                        sdStatus.setText("Writing files complete.");
+//                    }
+
                 }
             });
         }
