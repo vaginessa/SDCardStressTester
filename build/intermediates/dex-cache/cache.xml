@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="/Users/shravanjambukesan/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/support-annotations-23.3.0_8bbf163d9d1f028ed7fcd30c9ae2ae93689ca659.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b0edb27e9ff39f6acf933842817c1fd3af67a2d4">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/instant-run_1ff39a386fd2f8ac9fe2aa24a4a420a93efa4804.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/internal_impl-23.3.0_6583c695eb6457b12feaca417b63ea890f24a89a.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b8b89b042d581fb7036e6243ae4c3c79811c1119">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_e20b2af103c34d853acd3c1ce0c1c562d7d088dc.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.3.0_8299d5b1d9847e2cb0c27ceb116ea0eafbcd85db.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.3.0_39874204c42f1309978c40acbc068b3a1108d545.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.3.0_a160bd0087b1675e696b5699d47b9cb3c54acc15.jar" />
+    </item>
+    <item
+        jar="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/shravanjambukesan/Desktop/Android Workspace/SDCardStressTester/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.3.0_67f02d40f02e78ea37e8d9b85ccfc9e22a77a874.jar" />
+    </item>
+
+</items>

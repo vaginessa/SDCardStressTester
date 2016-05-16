@@ -20,9 +20,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".FileCreationService"
-            android:exported="false"></service>
     </application>
 
 </manifest>

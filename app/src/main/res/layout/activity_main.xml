@@ -29,22 +29,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel Test"
-        android:id="@+id/cancelTest"
+        android:text="Reset"
+        android:id="@+id/resetTest"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_below="@+id/cancelTest"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginTop="48dp"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:indeterminate="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,13 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Help/Info"
         android:id="@+id/infoButton"
-        android:layout_below="@+id/progressBar"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/resetTest" />
 
-    <Chronometer
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timer"
-        android:layout_below="@+id/infoButton"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

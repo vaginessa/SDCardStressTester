@@ -1,5 +1,12 @@
 package com.shravanj.sdcardstresstester;
 
+/**
+ * The MainActivity class creates and displays all of the UI elements as well as initiates the stress test
+ * @author Shravan Jambukesan
+ * Date: 5/14/16
+ * Period: 3rd
+ */
+
 import android.app.AlertDialog;
 import android.os.Process;
 import android.support.v4.content.pm.ActivityInfoCompat;
@@ -10,70 +17,66 @@ import android.view.*;
 import android.widget.*;
 import android.content.*;
 import java.io.*;
-import java.util.*;
-
-
 
 
 public class MainActivity extends AppCompatActivity
 {
-
+    //UI element Data members
     private TextView sdStatus;
     private Button startTest;
-    private Button cancelTest;
+    private Button resetTest;
     private Button info;
-    private ProgressBar spinner;
-    private Chronometer timer;
-    private boolean testInitiated;
-    long sdAvailableSpace = getAvailableSDSpace();
-    long fileNumber = calculateNumFiles();
+    public long fileNumber = calculateNumFiles();
     private boolean done = false;
+    private boolean x = false;
+    //Test timing data members
+    private long createStart;
+    private long createEnd;
+    private long deleteStart;
+    private long deleteEnd;
 
 
+    /**
+     * The onCreate method instantiates the UI elements as well as starts the test once the button is pressed
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startTest = (Button)findViewById(R.id.startTest);
-        cancelTest = (Button)findViewById(R.id.cancelTest);
+        resetTest = (Button)findViewById(R.id.resetTest);
         info = (Button)findViewById(R.id.infoButton);
-        timer = (Chronometer)findViewById(R.id.timer);
         sdStatus = (TextView)findViewById(R.id.sdStatus);
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
         displayHelpMessage();
-        stopTestHandler();
-        spinner.setVisibility(View.GONE);
+        resetHandler();
         if(checkForSD())
         {
-           sdStatus.setText("SD Card Detected. Press run test to start.");
+            sdStatus.setText("SD Card Detected. Press run test to start. Before starting for the first time, make sure you view the readme by pressing Help/Info.");
             startTest.setOnClickListener(new View.OnClickListener()
             {
                 public void onClick(View v) {
 
                     sdStatus.setText("Test started");
-                    testInitiated = true;
-                    spinner.setVisibility(View.VISIBLE);
-                    timer.start();
-                    Intent fileIntent = new Intent(Intent.ACTION_VIEW);
-//                    boolean b = true;
-//                    while(b)
-//                    {
-//                        stopTestHandler();
-//                        boolean run = createFiles();
-//
-//                        System.out.println("Files created");
-//                        if(run)
-//                        {
-//                            b = false;
-//                        }
-//                    }
-//                    if(done)
-//                    {
-//                        timer.stop();
-//                        sdStatus.setText("Writing files complete.");
-//                    }
-
+                    createStart = System.currentTimeMillis();
+                    boolean b = true;
+                    FileCreator fc = new FileCreator(fileNumber);
+                    while(b)
+                    {
+                        boolean run = fc.getStatus();
+                        System.out.println("Files created");
+                        if(run)
+                        {
+                            b = false;
+                            x = true;
+                        }
+                    }
+                    if(x)
+                    {
+                        createEnd = System.currentTimeMillis();
+                        deleteFiles();
+                    }
                 }
             });
         }
@@ -83,6 +86,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * The displayHelpMessage helper method creates a new onClicker listener for the Info/Help button
+     */
     public void displayHelpMessage()
     {
         info.setOnClickListener(new View.OnClickListener() {
@@ -94,11 +100,14 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * The createHelpMessage method creates and sets the text for the pop up box for the Info/Help viewer
+     */
     public void createHelpMessage()
     {
         AlertDialog help = new AlertDialog.Builder(MainActivity.this).create();
         help.setTitle("Info");
-        help.setMessage("Running the test will simulate wear by generating files that take up 10% of the available SD card space, time it, delete the files, time the deletion, and finally list the results. This can simulate heavy wear if used multiple times.");
+        help.setMessage("Running the test will simulate wear by generating files that take up 10% of the available SD card space, time it, delete the files, time the deletion, and finally list the results. This can simulate heavy wear if used multiple times. It is normal for the UI to freeze during the test due to the RAM used to write random blocks to the files.");
         help.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -108,65 +117,28 @@ public class MainActivity extends AppCompatActivity
         help.show();
     }
 
-    public void stopTestHandler()
+    /**
+     * The resetHandler method creates a new onClick listener for the Reset button which deletes any temporary test files (if any are found)
+     */
+    public void resetHandler()
     {
-        if(testInitiated)
-        {
-            cancelTest.setOnClickListener(new View.OnClickListener() {
+            resetTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    spinner.setVisibility(View.GONE);
-                    resetTimer();
                     done = true;
                     deleteFiles();
-                    sdStatus.setText("Test canceled");
+                    sdStatus.setText("Files deleted (if any). Press Run Stress Test to test again.");
                 }
             });
-        }
     }
 
-    public void resetTimer()
-    {
-        long stopped = timer.getBase() - SystemClock.elapsedRealtime();
-        timer.setBase(SystemClock.elapsedRealtime());
-        timer.stop();
-        stopped = 0;
-    }
-
-    public boolean createFiles()
-    {
-        try
-        {
-            String str = "";
-            File testDir = new File("/sdcard/stresstest");
-            testDir.mkdirs();
-            for(long x = 1; x <= fileNumber; x++)
-            {
-                str = "TestFile_" + (long) (x) + ".dat";
-                File test = new File(testDir, str);
-                //h.postDelayed(r, 3000);
-                RandomAccessFile testFile = new RandomAccessFile(test, "rw");
-                testFile.setLength(1024 * 1024);
-                System.out.println(str);
-                testFile.close();
-                //h.postDelayed(r, 3000);
-                if(x == fileNumber)
-                {
-                    done = true;
-                }
-            }
-        }
-        catch(IOException io)
-        {
-            //errorMessage();
-            System.out.println(io);
-        }
-        return done;
-    }
-
-
+    /**
+     * The deleteFiles method sequentially deletes the files and times how long it takes to delete them by
+     * updating the delete timing variables using the current system time
+     */
     public void deleteFiles()
     {
+        deleteStart = System.currentTimeMillis();
         File dir = new File("sdcard/stresstest/");
         if (dir.isDirectory())
         {
@@ -174,13 +146,25 @@ public class MainActivity extends AppCompatActivity
             for (int i = 0; i < children.length; i++)
             {
                 new File(dir, children[i]).delete();
+                //System.out.println("deleted");
             }
+            deleteEnd = System.currentTimeMillis();
+            sdStatus.setText("Final results: It took " + getFileCreationTime() +  " minute(s) to create " + calculateNumFiles() + " files and " + getFileDeletionTime() + " second(s) to delete them");
+        }
+        else
+        {
+            sdStatus.setText("SD card not inserted/mounted, so there are no files to be removed");
         }
     }
 
+    /**
+     * The checkForSD method checks to see if there is a SD card inserted and mounted
+     * @return true if there is an SD card detected
+     * @return false if there is not an SD card detected
+     */
     public boolean checkForSD()
     {
-        if(android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && Environment.isExternalStorageRemovable())
         {
             return true;
         }
@@ -190,80 +174,44 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * The getAvailableSDSpace method calculates how much free space is available on the card in MB
+     * @return the number of MB available on the SD card
+     */
     public long getAvailableSDSpace()
     {
         StatFs sdstat = new StatFs(Environment.getExternalStorageDirectory().getPath());
         long availableSpace = (long) sdstat.getBlockSize() * (long) sdstat.getAvailableBlocks() / (long) Math.pow(1024, 2);
         return availableSpace;
     }
-    
+
+    /**
+     * The calculateNumFiles method calculates the number of files to be created by taking the MB of the available
+     * SD card space and multiplying it by .10 to get 10% of it
+     * @return
+     */
     public long calculateNumFiles()
     {
-       long spaceToUse = (long) (getAvailableSDSpace() * .10);
+        long spaceToUse = (long) (getAvailableSDSpace() * .10);
         return spaceToUse;
     }
 
-    public void errorMessage()
+    /**
+     * The getFileCreation time gets the time it took to create the files in number of minutes
+     * @return the number of minutes it took to get the files created
+     */
+    public double getFileCreationTime()
     {
-        AlertDialog help = new AlertDialog.Builder(MainActivity.this).create();
-        help.setTitle("Error");
-        help.setMessage("An error occurred while generating the files");
-        help.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        help.show();
+        return (createEnd - createStart) / 1000 / 60;
     }
 
-    /*Runnable r = new Runnable()
+    /**
+     * The getFileDeletionTime gets the time it took to delete the files in number of seconds
+     * @return the number of seconds it took to get the files deleted
+     */
+    public double getFileDeletionTime()
     {
-        @Override
-        public void run() {
-            createFiles();
-        }
-    };
-
-    Handler h = new Handler();*/
-
-    /*static class FileCreationThread implements Runnable
-    {
-        boolean tmp = createFiles();
-        @Override
-        public void run()
-        {
-            android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-
-        }
-    }*/
-
-    /*class FileGeneration extends AsyncTask<Boolean, Void, Boolean>
-    {
-        @Override
-        protected Boolean doInBackground(Boolean... b)
-        {
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute()
-        {
-
-        }
-
-        @Override
-        protected void onPreExecute()
-        {
-
-        }
-
-        @Override
-        protected void onProgressUpdate()
-        {
-
-        }
-
-    }*/
+        return (deleteEnd - deleteStart) / 1000;
+    }
 
 }
