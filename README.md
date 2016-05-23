@@ -1,4 +1,5 @@
 # SDCardStressTester
+A java based SD card stress tester for Android phones with removable storage
 
 Background
 ==========
