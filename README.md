@@ -3,7 +3,7 @@ A java based SD card stress tester for Android phones with removable storage
 
 Download APK
 ============
-https://escher.shravanj.com/files/sdcardstresstester/release/stresstester.apk
+https://shravanj.com/files/sdcardstresstester/release/stresstester.apk
 
 Background
 ==========
